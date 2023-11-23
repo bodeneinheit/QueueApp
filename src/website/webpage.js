@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const listItem = document.createElement('li');
             listItem.textContent = (index + 1) + '. ' + person;
             queueList.appendChild(listItem);
+
+            setTimeout(function () {
+                listItem.classList.add("fade-in");
+            }, 10);
         });
     }
 

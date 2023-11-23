@@ -93,6 +93,10 @@ app.get('/queue/webpage.js', (req, res) => {
     res.sendFile(__dirname + '/website/webpage.js');
 });
 
+app.get('/queue/style.css', (req, res) => {
+    res.sendFile(__dirname + '/website/style.css');
+});
+
 httpServer.listen(port, () => {
     console.log(`server listening on port ${port}`);
 });
