@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
     let socket = new WebSocket("ws://localhost:6969/");
-// https://noisy-spark-hyena.glitch.me
 
     let queue = [];
 

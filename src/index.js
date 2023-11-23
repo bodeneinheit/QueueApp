@@ -25,17 +25,20 @@ wss.on("connection", async (clientConnection, req) => {
     updateClients();
     clientConnection.on("message", async (data) => {
         let decodedData = JSON.parse(decoder.decode(new Uint8Array(data)));
-        console.log(decodedData);
+        // console.log(decodedData);
         if (decodedData) {
             //add
             if (decodedData.type === 0) {
-                let inQueue = false;
+                let uniqueNameAndClient = true;
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
-                        inQueue = true;
+                        uniqueNameAndClient = false;
                     }
                 }
-                if (!inQueue) {
+                if (Object.keys(usersInQueue).includes(decodedData.message)) {
+                    uniqueNameAndClient = false;
+                }
+                if (uniqueNameAndClient) {
                     usersInQueue[decodedData.message] = clientConnection;
                 }
             }
@@ -43,12 +46,12 @@ wss.on("connection", async (clientConnection, req) => {
             else if (decodedData.type === 1) {
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
-                        delete usersInQueue[decodedData.message];
+                        delete usersInQueue[key];
                     }
                 }
             }
         }
-        console.log("Should update clients after this")
+        // console.log("Should update clients after this")
         updateClients();
     });
     // client disconnected
@@ -56,6 +59,10 @@ wss.on("connection", async (clientConnection, req) => {
         for (let i = 0; i < connectedClients.length; i++) {
             if (clientConnection === connectedClients[i]) {
                 connectedClients.splice(i, 1);
+                findUserWithClient(usersInQueue, clientConnection).forEach(
+                    (item) => {
+                        delete usersInQueue[item];
+                    });
             }
         }
         updateClients();
@@ -63,12 +70,15 @@ wss.on("connection", async (clientConnection, req) => {
 });
 
 function updateClients() {
-    console.log(connectedClients);
+    // console.log(connectedClients);
     for (let client of connectedClients) {
         client.send(Object.keys(usersInQueue).toString());
     }
 }
 
+function findUserWithClient(obj, client) {
+    return Object.keys(obj).filter(key => obj[key] === client);
+}
 
 //webpage
 app.get('/queue', (req, res) => {
