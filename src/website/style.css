@@ -68,7 +68,7 @@ html,body {
     font-weight: bold;
 }
 
-#queueList empty{
+#queueList .empty{
     color: #9d9d9d;
     list-style-type: none;
     margin-bottom: 5px;
@@ -77,6 +77,7 @@ html,body {
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
+    text-align: center;
 }
 
 .wrapper .form ul li {
@@ -90,6 +91,12 @@ html,body {
     transform: translateY(0);
 }
 
+#listWrapper {
+    max-height: 30rem;
+    width: 16rem;
+    padding: 0 0.2rem 0 0.7rem;
+    overflow-y: auto;
+}
 
 #queueList li:first-child {
     background-color: rgb(108, 233, 108);
@@ -170,4 +177,28 @@ html,body {
     background: #3a3a3a;
     transition: all 0.3s ease;
     text-decoration: line-through;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #5f5f5f;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(-135deg, #0065cc, #52ae32);
+}
+
+
+#controlsWrapper {
+    position: absolute;
+    bottom: 3rem;
+    width: 20rem;
 }

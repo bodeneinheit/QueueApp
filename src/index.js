@@ -13,11 +13,7 @@ let usersInQueue = {};
 let connectedClients = [];
 
 //websocket
-const httpServer = http.createServer( /*{
-        key: fs.readFileSync("./certs/private.key.pem"),
-        cert: fs.readFileSync("./certs/domain.cert.pem"),
-    },*/app
-);
+const httpServer = http.createServer(app);
 const wss = new WebSocketServer({server: httpServer, path: "/"});
 
 wss.on("connection", async (clientConnection) => {
