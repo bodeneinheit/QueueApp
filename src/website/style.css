@@ -122,7 +122,8 @@ html,body {
     transform: translateY(-50%);
 }
 
-#addButton, #removeButton{
+#addButton.enabled,
+#removeButton.enabled {
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -137,7 +138,22 @@ html,body {
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     transition: all 0.3s ease;
 }
-#addButton:hover,
-#removeButton:hover{
-    transform: scale(0.95);
+
+
+#addButton.disabled,
+#removeButton.disabled {
+    color: #9d9d9d;
+    border: none;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: not-allowed;
+    background: #3a3a3a;
+    transition: all 0.3s ease;
+    text-decoration: line-through;
 }

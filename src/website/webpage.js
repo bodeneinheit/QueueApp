@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let socket = new WebSocket("ws://localhost:6969/");
-
+    let state = true;
     let queue = [];
 
     socket.onopen = function () {
@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const addButton = document.getElementById('addButton');
     const removeButton = document.getElementById('removeButton');
 
+    jsEnableElement('addButton');
+    jsDisableElement('removeButton');
     let savedUser;
 
     addButton.addEventListener('click', function () {
@@ -58,11 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
         if (person !== '') {
             savedUser = person;
             addToQueue(savedUser);
+            if (state) {
+                state = updateButtons(state);
+            }
         }
     });
 
     removeButton.addEventListener('click', function () {
         removeFromQueue(savedUser);
+        if (!state) {
+            state = updateButtons(state);
+        }
     });
 
     function updateList() {
@@ -78,7 +86,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    setInterval( async() => {
+    function updateButtons(state) {
+        if (!state) {
+            jsEnableElement('addButton');
+            jsDisableElement('removeButton');
+        } else {
+            jsEnableElement('removeButton');
+            jsDisableElement('addButton');
+        }
+        return !state;
+    }
+
+    function jsEnableElement(id) {
+        if (document.getElementById(id)) {
+            document.getElementById(id).removeAttribute("disabled");
+            document.getElementById(id).className = "enabled";
+            //document.getElementById(id).disabled = false;
+        }
+    }
+
+    function jsDisableElement(id) {
+        if (document.getElementById(id)) {
+            document.getElementById(id).removeAttribute("enabled");
+            document.getElementById(id).className = "disabled";
+            //document.getElementById(id).disabled = true;
+        }
+    }
+
+    setInterval(async () => {
         let keepActive = await fetch("http://localhost:6969/keepactive")
         console.log(await keepActive.json());
     }, 1000 * 60);
