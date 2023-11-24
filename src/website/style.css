@@ -8,10 +8,28 @@
     font-family: 'Poppins', sans-serif;
 }
 
+#themeButton {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    color: #9d9d9d;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #3a3a3a55;
+    transition: all 0.3s ease;
+}
+
 #particles-js {
-    height: 98%;
+    height: 100%;
     width: 100%;
     position: absolute;
+    overflow: hidden;
 }
 
 html,body {
@@ -163,6 +181,8 @@ html,body {
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     transition: all 0.3s ease;
 }
+
+#themeButton:hover,
 #addButton.enabled:hover,
 #removeButton.enabled:hover{
     transform: scale(0.95);

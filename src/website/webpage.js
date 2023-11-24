@@ -1,12 +1,21 @@
 /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-particlesJS.load('particles-js', 'assets/particles.json', function() {
-    console.log('callback - particles.js config loaded');
+
+let jsonParticles;
+if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
+    jsonParticles = "particles-dec";
+} else {
+    jsonParticles = "particles";
+}
+particlesJS.load('particles-js', `assets/${jsonParticles}.json`, function () {
+    console.log('particles.js loaded');
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     let socket = new WebSocket("ws://localhost:6969/");
     let state = true;
     let queue = [];
+    let whiteListedNames = ["danial", "daniel", "fabian", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
 
     socket.onopen = function () {
         console.log("socket opened")
@@ -43,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // e.g. server process killed or network down
             // event.code is usually 1006 in this case
-            console.log('Connection died');
+            console.log('Connection died ${event.code}');
         }
     };
 
@@ -55,28 +64,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('inputField');
     const addButton = document.getElementById('addButton');
     const removeButton = document.getElementById('removeButton');
+    const themeButton = document.getElementById('themeButton');
 
     jsEnableElement('addButton');
     jsDisableElement('removeButton');
     let savedUser;
+    const useWhiteList = false;
 
     addButton.addEventListener('click', function () {
         const person = inputField.value.trim();
-        if (person.length < 25) {
-            if (person !== '' && !queue.includes(person)) {
-                savedUser = person;
-                addToQueue(person);
-               /* for (let i = 0; i < 15; i++) {
-                    addToQueue(Math.random().toFixed(2));
-                }*/
-                if (state) {
-                    state = updateButtons(state);
+        if (useWhiteList && whiteListedNames.includes(person.toLowerCase())) {
+            if (!/^\d+$/.test(person)) {
+                if (person.length < 25) {
+                    if (person !== '') {
+                        if (!queue.includes(person)) {
+                            savedUser = person;
+                            addToQueue(person);
+                            /* for (let i = 0; i < 15; i++) {
+                                 addToQueue(Math.random().toFixed(2));
+                             }*/
+                            if (state) {
+                                state = updateButtons(state);
+                            }
+                        } else {
+                            alert("name is already taken");
+                        }
+                    } else {
+                        alert("name may not be empty");
+                    }
+                } else {
+                    alert("name exceeds length limit");
                 }
             } else {
-                alert("invalid action");
+                alert("name must include a non-numeric character");
             }
         } else {
-            alert("name too long");
+            alert("name must be whitelisted");
         }
     });
 
@@ -87,6 +110,20 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             alert("invalid action");
         }
+    });
+
+    let enabled = true;
+    let oldValue;
+
+    themeButton.addEventListener('click', function () {
+        if (enabled) {
+            oldValue = pJSDom[0].pJS.particles.number.value;
+            pJSDom[0].pJS.particles.number.value = 0;
+        } else {
+            pJSDom[0].pJS.particles.number.value = oldValue;
+        }
+        pJSDom[0].pJS.fn.particlesRefresh();
+        enabled = !enabled;
     });
 
     function updateList() {
@@ -115,11 +152,11 @@ document.addEventListener('DOMContentLoaded', function () {
         jsDisableElement('removeButton');
         jsDisableElement('addButton');
         if (!state) {
-            setTimeout( () => {
+            setTimeout(() => {
                 jsEnableElement('addButton');
             }, 750)
         } else {
-            setTimeout( () => {
+            setTimeout(() => {
                 jsEnableElement('removeButton');
             }, 750)
         }

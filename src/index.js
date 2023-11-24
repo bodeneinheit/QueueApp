@@ -98,6 +98,10 @@ app.get('/assets/particles.json', (req, res) => {
     res.sendFile(__dirname + '/website/particles.json');
 });
 
+app.get('/assets/particles-dec.json', (req, res) => {
+    res.sendFile(__dirname + '/website/particles-dec.json');
+});
+
 httpServer.listen(port, () => {
     console.log(`server listening on port ${port}`);
 });
