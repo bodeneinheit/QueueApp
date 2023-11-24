@@ -40,6 +40,7 @@ wss.on("connection", async (clientConnection) => {
                 }
                 if (uniqueNameAndClient) {
                     usersInQueue[decodedData.message] = clientConnection;
+                    updateClients();
                 }
             }
             //remove
@@ -47,6 +48,7 @@ wss.on("connection", async (clientConnection) => {
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
                         delete usersInQueue[key];
+                        updateClients();
                     }
                 }
             }
@@ -56,7 +58,6 @@ wss.on("connection", async (clientConnection) => {
             // the old connectedClients object
         }
         // console.log("Should update clients after this")
-        updateClients();
     });
     // client disconnected
     clientConnection.on("close", async () => {

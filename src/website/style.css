@@ -12,12 +12,12 @@ html,body {
     height: 100%;
     width: 100%;
     place-items: center;
-    background: #f2f2f2;
+    background: #212325;
 }
 .wrapper {
     width: 380px;
     height: 85%;
-    background: #fff;
+    background: #2b2d2e;
     border-radius: 15px;
     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -32,19 +32,19 @@ html,body {
     color: #fff;
     user-select: none;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #0065cc, #52ae32);
     position: relative;
     z-index: 2;
 }
 
-.wrapper form {
+.wrapper .form {
     padding: 10px 30px 50px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.wrapper form .field {
+.wrapper .form .field {
     height: 50px;
     width: 100%;
     margin-top: 20px;
@@ -59,22 +59,23 @@ html,body {
 
 #queueList li {
     list-style-type: none;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #ffd700;
     border-radius: 5px;
-    font-size: 16px; 
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.wrapper form ul li {
+.wrapper .form ul li {
     opacity: 0;
-    transform: translateY(-10px); 
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; 
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
-.wrapper form ul li.fade-in {
+.wrapper .form ul li.fade-in {
     opacity: 1;
-    transform: translateY(0); 
+    transform: translateY(0);
 }
 
 
@@ -82,27 +83,29 @@ html,body {
     background-color: rgb(108, 233, 108);
     font-weight: bold;
 }
-#queueList li:last-child {
-    background-color: #ffd700; 
-    font-weight: bold; 
-}
-  
-.wrapper form .field input{
+/*#queueList li:last-child {*/
+/*    background-color: #ffd700;*/
+/*    font-weight: bold;*/
+/*}*/
+
+.wrapper .form .field input{
     height: 100%;
     width: 100%;
     outline: none;
     font-size: 17px;
     padding-left: 20px;
-    border: 1px solid #4158d0;
+    border: 1px solid #0065cc;
     border-radius: 20px;
     transition: all 0.3s ease;
+    background-color: #2b2f38;
+    color: #0065cc;
 }
 
-.wrapper form .field label{
+.wrapper .form .field label{
     position: absolute;
     top: 50%;
     left: 20px;
-    color: #999999;
+    color: #0065cc;
     font-weight: 400;
     font-size: 17px;
     pointer-events: none;
@@ -110,31 +113,31 @@ html,body {
     transition: all 0.3s ease;
 }
 
-form .field input:focus ~ label {
+.form .field input:focus ~ label,
+.form .field input:valid ~ label {
     top: 0%;
     font-size: 16px;
-    color: #4158d0;
-    background: #fff;
+    color: #0065cc;
+    background: #2b2f38;
     transform: translateY(-50%);
-}    
+}
 
 #addButton, #removeButton{
     color: #fff;
     border: none;
-    padding: 10px 20px; 
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px; 
-    cursor: pointer; 
-    margin-right: 10px; 
-    margin-top: 10px; 
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #0065cc, #52ae32);
     transition: all 0.3s ease;
 }
-#addButton:hover, 
+#addButton:hover,
 #removeButton:hover{
     transform: scale(0.95);
 }
-
