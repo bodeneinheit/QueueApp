@@ -94,7 +94,7 @@ html,body {
 #listWrapper {
     max-height: 30rem;
     width: 16rem;
-    padding: 0 0.2rem 0 0.7rem;
+    padding: 0.6rem 0.2rem 0 0.7rem;
     overflow-y: auto;
 }
 
