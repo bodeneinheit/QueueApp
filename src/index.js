@@ -102,6 +102,10 @@ app.get('/assets/particles-dec.json', (req, res) => {
     res.sendFile(__dirname + '/website/particles-dec.json');
 });
 
+app.get('/queue/swmstreifen.png', (req, res) => {
+    res.sendFile(__dirname + '/website/swmstreifen.png');
+});
+
 httpServer.listen(port, () => {
     console.log(`server listening on port ${port}`);
 });

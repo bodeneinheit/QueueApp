@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function getVisible() {
     let value = localStorage.getItem('visible');
-    return value == '1';
+    return value === '1';
 }
 
 function setVisible(visible) {
