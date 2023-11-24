@@ -19,7 +19,7 @@ html,body {
     height: 85%;
     background: #2b2d2e;
     border-radius: 15px;
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow-y: auto;
 }
@@ -35,7 +35,7 @@ html,body {
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     position: relative;
     z-index: 2;
-    margin-bottom: 7.5px;
+    margin-bottom: 8px;
 }
 
 .wrapper .form {
@@ -128,7 +128,7 @@ html,body {
 
 .form .field input:focus ~ label,
 .form .field input:valid ~ label {
-    top: 0%;
+    top: 0;
     font-size: 16px;
     color: #0065cc;
     background: #2b2f38;
@@ -140,14 +140,12 @@ html,body {
     color: #fff;
     border: none;
     padding: 10px 20px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
     margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
-    cursor: pointer;
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     transition: all 0.3s ease;
 }
@@ -161,7 +159,6 @@ html,body {
     color: #9d9d9d;
     border: none;
     padding: 10px 20px;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
