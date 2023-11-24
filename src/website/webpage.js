@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (person !== '' && !queue.includes(person)) {
                 savedUser = person;
                 addToQueue(person);
-               /* for (let i = 0; i < 5; i++) {
+               /* for (let i = 0; i < 15; i++) {
                     addToQueue(Math.random().toFixed(2));
                 }*/
                 if (state) {
