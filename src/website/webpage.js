@@ -1,3 +1,8 @@
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+    console.log('callback - particles.js config loaded');
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     let socket = new WebSocket("ws://localhost:6969/");
     let state = true;

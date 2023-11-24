@@ -7,6 +7,13 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+#particles-js {
+    height: 98%;
+    width: 100%;
+    position: absolute;
+}
+
 html,body {
     display: grid;
     height: 100%;
@@ -35,7 +42,7 @@ html,body {
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     position: relative;
     z-index: 2;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .wrapper .form {
@@ -176,7 +183,7 @@ html,body {
     pointer-events: none;
     background: #3a3a3a;
     transition: all 0.3s ease;
-    text-decoration: line-through;
+    /*text-decoration: line-through;*/
 }
 
 

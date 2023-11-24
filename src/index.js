@@ -94,6 +94,10 @@ app.get('/queue/style.css', (req, res) => {
     res.sendFile(__dirname + '/website/style.css');
 });
 
+app.get('/assets/particles.json', (req, res) => {
+    res.sendFile(__dirname + '/website/particles.json');
+});
+
 httpServer.listen(port, () => {
     console.log(`server listening on port ${port}`);
 });
