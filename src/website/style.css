@@ -25,10 +25,10 @@ html,body {
 }
 
 .wrapper .title {
-    font-size: 35px;
+    font-size: 45px;
     font-weight: 600;
     text-align: center;
-    line-height: 100px;
+    line-height: 75px;
     color: #fff;
     user-select: none;
     border-radius: 15px 15px 0 0;
@@ -63,6 +63,17 @@ html,body {
     padding: 10px;
     background-color: #ffd700;
     border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#queueList empty{
+    color: #9d9d9d;
+    list-style-type: none;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #3a3a3a;
+    border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
 }
@@ -83,6 +94,7 @@ html,body {
     background-color: rgb(108, 233, 108);
     font-weight: bold;
 }
+
 /*#queueList li:last-child {*/
 /*    background-color: #ffd700;*/
 /*    font-weight: bold;*/

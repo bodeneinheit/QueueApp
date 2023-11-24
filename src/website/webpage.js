@@ -57,12 +57,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     addButton.addEventListener('click', function () {
         const person = inputField.value.trim();
-        if (person !== '') {
-            savedUser = person;
-            addToQueue(savedUser);
-            if (state) {
-                state = updateButtons(state);
+        if (person.length < 25) {
+            if (person !== '' && !queue.includes(person)) {
+                savedUser = person;
+                addToQueue(person);
+                if (state) {
+                    state = updateButtons(state);
+                }
+            } else {
+                alert("invalid action");
             }
+        } else {
+            alert("name too long");
         }
     });
 
@@ -70,20 +76,30 @@ document.addEventListener('DOMContentLoaded', function () {
         removeFromQueue(savedUser);
         if (!state) {
             state = updateButtons(state);
+        } else {
+            alert("invalid action");
         }
     });
 
     function updateList() {
         queueList.innerHTML = '';
-        queue.forEach(function (person, index) {
-            const listItem = document.createElement('li');
-            listItem.textContent = (index + 1) + '. ' + person;
-            queueList.appendChild(listItem);
 
-            setTimeout(function () {
-                listItem.classList.add("fade-in");
-            }, 10);
-        });
+        if (queue.length === 0) {
+            // Add default entry if the array is empty
+            const defaultItem = document.createElement('empty');
+            defaultItem.textContent = 'Queue is empty';
+            queueList.appendChild(defaultItem);
+        } else {
+            queue.forEach(function (person, index) {
+                const listItem = document.createElement('li');
+                listItem.textContent = (index + 1) + '. ' + person;
+                queueList.appendChild(listItem);
+
+                setTimeout(function () {
+                    listItem.classList.add("fade-in");
+                }, 10);
+            });
+        }
     }
 
     function updateButtons(state) {
