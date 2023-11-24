@@ -87,12 +87,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateButtons(state) {
+        jsDisableElement('removeButton');
+        jsDisableElement('addButton');
         if (!state) {
-            jsEnableElement('addButton');
-            jsDisableElement('removeButton');
+            setTimeout( () => {
+                jsEnableElement('addButton');
+            }, 750)
         } else {
-            jsEnableElement('removeButton');
-            jsDisableElement('addButton');
+            setTimeout( () => {
+                jsEnableElement('removeButton');
+            }, 750)
         }
         return !state;
     }

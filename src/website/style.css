@@ -138,7 +138,10 @@ html,body {
     background: linear-gradient(-135deg, #0065cc, #52ae32);
     transition: all 0.3s ease;
 }
-
+#addButton.enabled:hover,
+#removeButton.enabled:hover{
+    transform: scale(0.95);
+}
 
 #addButton.disabled,
 #removeButton.disabled {
@@ -152,7 +155,8 @@ html,body {
     margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
-    cursor: not-allowed;
+    /*cursor: not-allowed;*/
+    pointer-events: none;
     background: #3a3a3a;
     transition: all 0.3s ease;
     text-decoration: line-through;
