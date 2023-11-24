@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (person !== '' && !queue.includes(person)) {
                 savedUser = person;
                 addToQueue(person);
+               /* for (let i = 0; i < 5; i++) {
+                    addToQueue(Math.random().toFixed(2));
+                }*/
                 if (state) {
                     state = updateButtons(state);
                 }
@@ -86,7 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (queue.length === 0) {
             // Add default entry if the array is empty
-            const defaultItem = document.createElement('empty');
+            const defaultItem = document.createElement('div');
+            defaultItem.classList.add("empty");
             defaultItem.textContent = 'Queue is empty';
             queueList.appendChild(defaultItem);
         } else {
