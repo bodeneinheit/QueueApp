@@ -1,15 +1,20 @@
 /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-
 let jsonParticles;
-if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
-    jsonParticles = "particles-dec";
-} else {
-    jsonParticles = "particles";
+if (getVisible()) {
+    initParticles();
 }
-particlesJS.load('particles-js', `assets/${jsonParticles}.json`, function () {
-    console.log('particles.js loaded');
-});
+console.log(getVisible());
 
+function initParticles() {
+    if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
+        jsonParticles = "particles-dec";
+    } else {
+        jsonParticles = "particles";
+    }
+    particlesJS.load('particles-js', `assets/${jsonParticles}.json`, function () {
+        console.log('particles.js loaded');
+    });
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     let socket = new WebSocket("ws://localhost:6969/");
@@ -66,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const removeButton = document.getElementById('removeButton');
     const themeButton = document.getElementById('themeButton');
 
+
     jsEnableElement('addButton');
     jsDisableElement('removeButton');
     let savedUser;
@@ -73,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     addButton.addEventListener('click', function () {
         const person = inputField.value.trim();
-        if (useWhiteList && whiteListedNames.includes(person.toLowerCase())) {
+        if (!useWhiteList || (useWhiteList && whiteListedNames.includes(person.toLowerCase()))) {
             if (!/^\d+$/.test(person)) {
                 if (person.length < 25) {
                     if (person !== '') {
@@ -112,15 +118,21 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    let enabled = true;
+    let enabled = getVisible();
     let oldValue;
 
     themeButton.addEventListener('click', function () {
         if (enabled) {
             oldValue = pJSDom[0].pJS.particles.number.value;
             pJSDom[0].pJS.particles.number.value = 0;
+            setVisible(false);
         } else {
-            pJSDom[0].pJS.particles.number.value = oldValue;
+            if (jsonParticles) {
+                pJSDom[0].pJS.particles.number.value = oldValue;
+            } else {
+                initParticles();
+            }
+            setVisible(true);
         }
         pJSDom[0].pJS.fn.particlesRefresh();
         enabled = !enabled;
@@ -184,3 +196,12 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(await keepActive.json());
     }, 1000 * 60);
 });
+
+function getVisible() {
+    let value = localStorage.getItem('visible');
+    return value == '1';
+}
+
+function setVisible(visible) {
+    localStorage.setItem('visible', (visible ? '1' : '0'));
+}
