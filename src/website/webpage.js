@@ -125,16 +125,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (enabled) {
             oldValue = pJSDom[0].pJS.particles.number.value;
             pJSDom[0].pJS.particles.number.value = 0;
+            pJSDom[0].pJS.fn.particlesRefresh();
             setVisible(false);
         } else {
-            if (jsonParticles) {
+            if (jsonParticles != undefined) {
                 pJSDom[0].pJS.particles.number.value = oldValue;
+                pJSDom[0].pJS.fn.particlesRefresh();
             } else {
                 initParticles();
             }
             setVisible(true);
         }
-        pJSDom[0].pJS.fn.particlesRefresh();
         enabled = !enabled;
     });
 
