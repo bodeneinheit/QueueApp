@@ -1,10 +1,10 @@
-// const cors = require("cors")
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 6969;
 const http = require("http");
-// const fs = require("fs");
-// const ws = require('ws');
+const fs = require("fs");
+const ws = require('ws');
 const {WebSocketServer} = require("ws");
 
 //variables
@@ -14,27 +14,35 @@ let connectedClients = [];
 
 //websocket
 const httpServer = http.createServer(app);
-const wss = new WebSocketServer({server: httpServer, path: "/"});
 
-wss.on("connection", async (clientConnection) => {
+httpServer.listen(port, () => {
+    console.log(`server listening on port ${port}`);
+});
+const wss = new WebSocketServer({server: httpServer, path: "/websocket"});
+
+function findKeysWithValue(obj, value) {
+    return Object.keys(obj).filter(key => obj[key] === value);
+}
+
+wss.on("connection", async (clientConnection, req) => {
     connectedClients.push(clientConnection);
     updateClients();
     clientConnection.on("message", async (data) => {
         let decodedData = JSON.parse(decoder.decode(new Uint8Array(data)));
-        // console.log(decodedData);
         if (decodedData) {
             //add
+            console.log(Object.keys(usersInQueue))
             if (decodedData.type === 0) {
-                let uniqueNameAndClient = true;
+                let inQueue = false;
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
-                        uniqueNameAndClient = false;
+                        inQueue = true;
+                        console.log("ALARM")
+                    } else if (Object.keys(usersInQueue).includes(decodedData.message)) {
+                        inQueue = true;
                     }
                 }
-                if (Object.keys(usersInQueue).includes(decodedData.message)) {
-                    uniqueNameAndClient = false;
-                }
-                if (uniqueNameAndClient) {
+                if (!inQueue) {
                     usersInQueue[decodedData.message] = clientConnection;
                     updateClients();
                 }
@@ -48,19 +56,17 @@ wss.on("connection", async (clientConnection) => {
                     }
                 }
             }
-            // edit
-            // could make an edit button:
-            // //for loop, copy key-value pairs into new object and save that into
-            // the old connectedClients object
         }
-        // console.log("Should update clients after this")
+        console.log("Should update clients after this")
+        console.log(Object.keys(usersInQueue))
     });
     // client disconnected
     clientConnection.on("close", async () => {
+        console.log("CLOSED")
         for (let i = 0; i < connectedClients.length; i++) {
             if (clientConnection === connectedClients[i]) {
                 connectedClients.splice(i, 1);
-                findUserWithClient(usersInQueue, clientConnection).forEach(
+                findKeysWithValue(usersInQueue, clientConnection).forEach(
                     (item) => {
                         delete usersInQueue[item];
                     });
@@ -70,46 +76,39 @@ wss.on("connection", async (clientConnection) => {
     });
 });
 
+
 function updateClients() {
-    // console.log(connectedClients);
     for (let client of connectedClients) {
         client.send(Object.keys(usersInQueue).toString());
     }
 }
 
-function findUserWithClient(obj, client) {
-    return Object.keys(obj).filter(key => obj[key] === client);
-}
 
 //webpage
-app.get('/queue', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/website/index.html');
 });
 
-app.get('/queue/webpage.js', (req, res) => {
+app.get('/src/webpage.js', (req, res) => {
     res.sendFile(__dirname + '/website/webpage.js');
 });
 
-app.get('/queue/style.css', (req, res) => {
+app.get('/src/style.css', (req, res) => {
     res.sendFile(__dirname + '/website/style.css');
 });
 
-app.get('/assets/particles.json', (req, res) => {
+app.get('/src/particles.json', (req, res) => {
     res.sendFile(__dirname + '/website/particles.json');
 });
 
-app.get('/assets/particles-dec.json', (req, res) => {
+app.get('/src/particles-dec.json', (req, res) => {
     res.sendFile(__dirname + '/website/particles-dec.json');
 });
 
-app.get('/queue/swmstreifen.png', (req, res) => {
-    res.sendFile(__dirname + '/website/swmstreifen.png');
+app.get('/src/favicon.png', (req, res) => {
+    res.sendFile(__dirname + '/website/favicon.png');
 });
 
-httpServer.listen(port, () => {
-    console.log(`server listening on port ${port}`);
+app.get('/src/keepactive', (req, res) => {
+    res.send({});
 });
-
-app.get('/keepactive', (req, res) => {
-    res.send({})
-})

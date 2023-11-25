@@ -1,26 +1,26 @@
-/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-let jsonParticles;
-if (getVisible()) {
-    initParticles();
-}
-console.log(getVisible());
 
-function initParticles() {
-    if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
-        jsonParticles = "particles-dec";
-    } else {
-        jsonParticles = "particles";
+document.addEventListener("DOMContentLoaded", function () {
+    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+    let jsonParticles;
+    if (getVisible()) {
+        initParticles();
     }
-    particlesJS.load('particles-js', `assets/${jsonParticles}.json`, function () {
-        console.log('particles.js loaded');
-    });
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-    let socket = new WebSocket("ws://localhost:6969/");
+    function initParticles() {
+        if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
+            jsonParticles = "particles-dec";
+        } else {
+            jsonParticles = "particles";
+        }
+        particlesJS.load('particles-js', `src/${jsonParticles}.json`, function () {
+            console.log('particles.js loaded');
+        });
+    }
+
+    let socket = new WebSocket("ws://localhost:6969/websocket");
     let state = true;
     let queue = [];
-    let whiteListedNames = ["danial", "daniel", "fabian", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
+    let whiteListedNames = ["danial", "daniel", "fabi", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
 
     socket.onopen = function () {
         console.log("socket opened")
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputField = document.getElementById('inputField');
     const addButton = document.getElementById('addButton');
     const removeButton = document.getElementById('removeButton');
-    const themeButton = document.getElementById('themeButton');
+    const effectsButton = document.getElementById('effectsButton');
 
 
     jsEnableElement('addButton');
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let enabled = getVisible();
     let oldValue;
 
-    themeButton.addEventListener('click', function () {
+    effectsButton.addEventListener('click', function () {
         if (enabled) {
             oldValue = pJSDom[0].pJS.particles.number.value;
             pJSDom[0].pJS.particles.number.value = 0;
@@ -192,14 +192,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     setInterval(async () => {
-        let keepActive = await fetch("http://localhost:6969/keepactive")
-        console.log(await keepActive.json());
-    }, 1000 * 60);
+        let keepActive = await fetch("http://localhost:6969/src/keepactive");
+    }, 1000 * 60 * 1);
 });
 
 function getVisible() {
     let value = localStorage.getItem('visible');
-    return value === '1';
+    return !(value == '0');
 }
 
 function setVisible(visible) {
