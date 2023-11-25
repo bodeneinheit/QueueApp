@@ -2,9 +2,9 @@
   "name": "queue app",
   "version": "0.1.0",
   "description": "simple queue app website",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
