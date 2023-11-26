@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             pJSDom[0].pJS.fn.particlesRefresh();
             setVisible(false);
         } else {
-            if (jsonParticles != undefined) {
+            if (jsonParticles !== undefined) {
                 pJSDom[0].pJS.particles.number.value = oldValue;
                 pJSDom[0].pJS.fn.particlesRefresh();
             } else {
