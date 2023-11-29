@@ -109,6 +109,6 @@ app.get('/src/favicon.png', (req, res) => {
     res.sendFile(__dirname + '/website/favicon.png');
 });
 
-app.get('/src/keepactive', (req, res) => {
+app.get('/keepactive', (req, res) => {
     res.send({});
 });

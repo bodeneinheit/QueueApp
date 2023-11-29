@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
     /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
     let jsonParticles;
@@ -192,8 +191,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    setTimeout(() => {
+        document.getElementById("p").innerHTML = "New text!";
+    }, 1000);
+
+
     setInterval(async () => {
-        let keepActive = await fetch("http://localhost:6969/src/keepactive");
+        let keepActive = await fetch("http://localhost:6969/keepactive");
     }, 1000 * 60 * 1);
 });
 
