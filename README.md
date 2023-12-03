@@ -1,2 +1,2 @@
 # QueueApp
-simple node.js website with synced queue
+A simple Node.js Website with Synced Queue System
