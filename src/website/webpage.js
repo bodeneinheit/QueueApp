@@ -1,20 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-    let jsonParticles;
-    if (getVisible()) {
-        initParticles();
-    }
+/* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+let jsonParticles;
+if (getVisible()) {
+    initParticles();
+}
 
-    function initParticles() {
-        if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
-            jsonParticles = "particles-dec";
-        } else {
-            jsonParticles = "particles";
-        }
-        particlesJS.load('particles-js', `src/${jsonParticles}.json`, function () {
-            console.log('particles.js loaded');
-        });
+function initParticles() {
+    if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
+        jsonParticles = "particles-dec";
+    } else {
+        jsonParticles = "particles";
+        document.getElementById("hat").style.display = 'none';
     }
+    particlesJS.load('particles-js', `src/${jsonParticles}.json`, function () {
+        console.log('particles.js loaded');
+    });
+}
 
     let socket = new WebSocket("ws://localhost:6969/websocket");
     let state = true;
