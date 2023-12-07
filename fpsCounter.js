@@ -28,3 +28,6 @@
     displayFPS();
     hookParticlesJS();
 })();
+
+
+// document.getElementById("p1").innerHTML = "100000 FPS";
