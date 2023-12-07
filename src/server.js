@@ -109,6 +109,10 @@ app.get('/src/favicon.png', (req, res) => {
     res.sendFile(__dirname + '/website/favicon.png');
 });
 
+app.get('/src/hat.webp', (req, res) => {
+    res.sendFile(__dirname + '/website/hat.webp');
+});
+
 app.get('/keepactive', (req, res) => {
     res.send({});
 });
