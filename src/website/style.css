@@ -184,7 +184,7 @@ html,body {
     transition: all 0.3s ease;
 }
 
-#effectsButton:hover,
+#themeButton:hover,
 #addButton.enabled:hover,
 #removeButton.enabled:hover{
     transform: scale(0.95);
@@ -230,4 +230,18 @@ html,body {
     position: absolute;
     bottom: 3rem;
     width: 20rem;
+}
+
+
+#hat {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    z-index: 4;
+    position: absolute;
+    top: 0rem;
+    right: 32rem;
+    rotate: 20deg;
 }
