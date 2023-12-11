@@ -241,14 +241,14 @@ html,body {
 #hat {
     display: block;
     margin: 0 auto;
-    width: 200px;
+    width: 10%;
     height: auto;
     object-fit: cover;
     z-index: 4;
     position: absolute;
-    top: 0rem;
-    right: 32rem;
-    rotate: 20deg;
+    top: 2%;
+    right: 36%;
+    transform: rotate(20deg);
 }
 
 #frameRate {
