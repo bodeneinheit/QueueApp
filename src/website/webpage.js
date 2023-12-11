@@ -7,6 +7,9 @@ if (getVisible()) {
 function initParticles() {
     if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
         jsonParticles = "particles-dec";
+        document.body.style.background = '#0a3b2a';
+        document.documentElement.style.setProperty('--swm-green', '#c92222');
+        document.documentElement.style.setProperty('--swm-blue', '#7c0808');
     } else {
         jsonParticles = "particles";
         document.getElementById("hat").style.display = 'none';

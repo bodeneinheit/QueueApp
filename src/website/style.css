@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
 
+:root {
+    --swm-green: #0065cc;
+    --swm-blue: #52ae32;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -57,7 +62,7 @@ html,body {
     color: #fff;
     user-select: none;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(-135deg, #0065cc, #52ae32);
+    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
     position: relative;
     z-index: 2;
     margin-bottom: 10px;
@@ -141,18 +146,18 @@ html,body {
     outline: none;
     font-size: 17px;
     padding-left: 20px;
-    border: 1px solid #0065cc;
+    border: 1px solid var(--swm-green);
     border-radius: 20px;
     transition: all 0.3s ease;
     background-color: #2b2f38;
-    color: #0065cc;
+    color: var(--swm-green);
 }
 
 .wrapper .form .field label{
     position: absolute;
     top: 50%;
     left: 20px;
-    color: #0065cc;
+    color: var(--swm-green);
     font-weight: 400;
     font-size: 17px;
     pointer-events: none;
@@ -164,7 +169,7 @@ html,body {
 .form .field input:valid ~ label {
     top: 0;
     font-size: 16px;
-    color: #0065cc;
+    color: var(--swm-green);
     background: #2b2f38;
     transform: translateY(-50%);
 }
@@ -180,7 +185,7 @@ html,body {
     margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
-    background: linear-gradient(-135deg, #0065cc, #52ae32);
+    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
     transition: all 0.3s ease;
 }
 
@@ -222,7 +227,7 @@ html,body {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: linear-gradient(-135deg, #0065cc, #52ae32);
+    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
 }
 
 
