@@ -92,7 +92,6 @@ addButton.addEventListener('click', function () {
                         savedUser = person;
                         addToQueue(person);
                         myName = person;
-                        // audio.play();
                         /* for (let i = 0; i < 15; i++) {
                              addToQueue(Math.random().toFixed(2));
                          }*/
@@ -158,14 +157,16 @@ function updateList() {
         defaultItem.classList.add("empty");
         defaultItem.textContent = 'Queue is empty';
         queueList.appendChild(defaultItem);
+        prevString = '';
     } else {
         queue.forEach(function (person, index) {
             const listItem = document.createElement('li');
             listItem.textContent = (index + 1) + '. ' + person;
             queueList.appendChild(listItem);
+            // console.log(`Person: ${person}, Prev: ${prevString}, My: ${myName}, i: ${index}`);
             if (index === 0) {
                 if (person !== prevString) {
-                    if (myName == person) {
+                    if (myName === person) {
                         audio.play();
                     }
                     prevString = person;
