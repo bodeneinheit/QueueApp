@@ -113,6 +113,10 @@ app.get('/src/hat.webp', (req, res) => {
     res.sendFile(__dirname + '/website/hat.webp');
 });
 
+app.get('/src/cow.mp3', (req, res) => {
+    res.sendFile(__dirname + '/website/cow.mp3');
+});
+
 app.get('/keepactive', (req, res) => {
     res.send({});
 });
