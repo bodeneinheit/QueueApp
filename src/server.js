@@ -93,6 +93,10 @@ app.get('/src/webpage.js', (req, res) => {
     res.sendFile(__dirname + '/website/webpage.js');
 });
 
+app.get('/src/cleaner.js', (req, res) => {
+    res.sendFile(__dirname + '/website/cleaner.js');
+});
+
 app.get('/src/style.css', (req, res) => {
     res.sendFile(__dirname + '/website/style.css');
 });

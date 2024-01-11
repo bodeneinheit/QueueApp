@@ -5,14 +5,14 @@ if (getVisible()) {
 }
 
 function initParticles() {
-    if (new Date().getMonth() === 11 || new Date().getMonth() === 0) {
+    if (new Date().getMonth() === 11) {
         jsonParticles = "particles-dec";
         document.body.style.background = '#0a3b2a';
         document.documentElement.style.setProperty('--swm-green', '#c92222');
         document.documentElement.style.setProperty('--swm-blue', '#7c0808');
+        document.getElementById("hat").style.display = 'block';
     } else {
         jsonParticles = "particles";
-        document.getElementById("hat").style.display = 'none';
     }
     particlesJS.load('particles-js', `src/${jsonParticles}.json`, function () {
         console.log('particles.js loaded');
@@ -83,6 +83,16 @@ const audio = new Audio('src/cow.mp3');
 let myName = '';
 
 addButton.addEventListener('click', function () {
+    addPerson();
+});
+
+document.querySelector('#inputField').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        addPerson();
+    }
+});
+
+function addPerson() {
     const person = inputField.value.trim();
     if (!useWhiteList || (useWhiteList && whiteListedNames.includes(person.toLowerCase()))) {
         if (!/^\d+$/.test(person)) {
@@ -113,7 +123,7 @@ addButton.addEventListener('click', function () {
     } else {
         alert("name must be whitelisted");
     }
-});
+}
 
 removeButton.addEventListener('click', function () {
     removeFromQueue(savedUser);

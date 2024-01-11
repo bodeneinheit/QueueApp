@@ -239,16 +239,16 @@ html,body {
 
 
 #hat {
-    display: block;
+    display: none;
     margin: 0 auto;
-    width: 10%;
+    width: 200px;
     height: auto;
     object-fit: cover;
     z-index: 4;
     position: absolute;
-    top: 2%;
-    right: 36%;
-    transform: rotate(20deg);
+    top: 0rem;
+    right: 32rem;
+    rotate: 20deg;
 }
 
 #frameRate {
