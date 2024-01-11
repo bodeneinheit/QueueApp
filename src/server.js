@@ -11,6 +11,10 @@ const {WebSocketServer} = require("ws");
 const decoder = new TextDecoder();
 let usersInQueue = {};
 let connectedClients = [];
+const blackListedIPs = [];
+const maxLength = 25;
+const useWhiteList = true; // UPDATE CLIENT
+const whiteListedNames = ["danial", "daniel", "fabi", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
 
 //websocket
 const httpServer = http.createServer(app);
@@ -27,27 +31,31 @@ function findKeysWithValue(obj, value) {
 wss.on("connection", async (clientConnection, req) => {
     connectedClients.push(clientConnection);
     updateClients();
+
     clientConnection.on("message", async (data) => {
         let decodedData = JSON.parse(decoder.decode(new Uint8Array(data)));
         if (decodedData) {
-            //add
-            console.log(Object.keys(usersInQueue))
+            // Add
             if (decodedData.type === 0) {
                 let inQueue = false;
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
                         inQueue = true;
-                        console.log("ALARM")
                     } else if (Object.keys(usersInQueue).includes(decodedData.message)) {
                         inQueue = true;
                     }
                 }
                 if (!inQueue) {
-                    usersInQueue[decodedData.message] = clientConnection;
-                    updateClients();
+                    if (isLegalUser(decodedData.message)) {
+                        usersInQueue[decodedData.message] = clientConnection;
+                        updateClients();
+                    } else {
+                        // Handle non-whitelisted user
+                        console.log("Non-whitelisted user tried to join the queue.");
+                    }
                 }
             }
-            //remove
+            // Remove
             else if (decodedData.type === 1) {
                 for (let key in usersInQueue) {
                     if (usersInQueue[key] === clientConnection) {
@@ -57,12 +65,9 @@ wss.on("connection", async (clientConnection, req) => {
                 }
             }
         }
-        console.log("Should update clients after this")
-        console.log(Object.keys(usersInQueue))
     });
-    // client disconnected
+
     clientConnection.on("close", async () => {
-        console.log("CLOSED")
         for (let i = 0; i < connectedClients.length; i++) {
             if (clientConnection === connectedClients[i]) {
                 connectedClients.splice(i, 1);
@@ -76,6 +81,12 @@ wss.on("connection", async (clientConnection, req) => {
     });
 });
 
+function isLegalUser(username) {
+    if (useWhiteList && !whiteListedNames.includes(username.toLowerCase())) {
+        return false;
+    }
+    return /^\d+$/.test(username) ? false : username.length < maxLength && username !== '';
+}
 
 function updateClients() {
     for (let client of connectedClients) {
@@ -83,10 +94,22 @@ function updateClients() {
     }
 }
 
-
 //webpage
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/website/index.html');
+    // log IP address
+    const clientIP = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(",")[0];
+
+    // set cache control headers to prevent caching
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+
+    if (!blackListedIPs.includes(clientIP)) {
+        console.log(clientIP);
+        //console.log("html");
+        res.sendFile(__dirname + '/website/index.html');
+    } else {
+        console.log(`Blocked: ${clientIP}`);
+        res.status(403).send('Forbidden');
+    }
 });
 
 app.get('/src/webpage.js', (req, res) => {

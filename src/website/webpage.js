@@ -22,7 +22,7 @@ function initParticles() {
 let socket = new WebSocket("ws://localhost:6969/websocket");
 let state = true;
 let queue = [];
-let whiteListedNames = ["danial", "daniel", "fabi", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
+const whiteListedNames = ["danial", "daniel", "fabi", "falk", "lukas", "maxi", "mert", "niklas", "simon", "tibo"];
 
 socket.onopen = function () {
     console.log("socket opened")
@@ -78,7 +78,7 @@ jsEnableElement('addButton');
 jsDisableElement('removeButton');
 let savedUser;
 const maxLength = 25;
-const useWhiteList = false;
+const useWhiteList = true; // UPDATE SERVER
 const audio = new Audio('src/cow.mp3');
 let myName = '';
 
@@ -157,7 +157,6 @@ effectsButton.addEventListener('click', function () {
 });
 
 let prevString = '';
-
 function updateList() {
     queueList.innerHTML = '';
 
@@ -173,10 +172,9 @@ function updateList() {
             const listItem = document.createElement('li');
             listItem.textContent = (index + 1) + '. ' + person;
             queueList.appendChild(listItem);
-            // console.log(`Person: ${person}, Prev: ${prevString}, My: ${myName}, i: ${index}`);
             if (index === 0) {
                 if (person !== prevString) {
-                    if (myName === person) {
+                    if (myName == person) {
                         audio.play();
                     }
                     prevString = person;
