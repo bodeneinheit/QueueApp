@@ -31,8 +31,8 @@
 }
 
 #particles-js {
-    height: 100%;
-    width: 100%;
+    height: 100%!important;
+    width: 100%!important;
     position: absolute;
     overflow: hidden;
 }
@@ -62,7 +62,7 @@ html,body {
     color: #fff;
     user-select: none;
     border-radius: 15px 15px 0 0;
-    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
+    background: linear-gradient(-135deg, var(--swm-blue), var(--swm-green));
     position: relative;
     z-index: 2;
     margin-bottom: 10px;
@@ -146,18 +146,18 @@ html,body {
     outline: none;
     font-size: 17px;
     padding-left: 20px;
-    border: 1px solid var(--swm-green);
+    border: 1px solid var(--swm-blue);
     border-radius: 20px;
     transition: all 0.3s ease;
     background-color: #2b2f38;
-    color: var(--swm-green);
+    color: var(--swm-blue);
 }
 
 .wrapper .form .field label{
     position: absolute;
     top: 50%;
     left: 20px;
-    color: var(--swm-green);
+    color: var(--swm-blue);
     font-weight: 400;
     font-size: 17px;
     pointer-events: none;
@@ -169,7 +169,7 @@ html,body {
 .form .field input:valid ~ label {
     top: 0;
     font-size: 16px;
-    color: var(--swm-green);
+    color: var(--swm-blue);
     background: #2b2f38;
     transform: translateY(-50%);
 }
@@ -185,7 +185,7 @@ html,body {
     margin-top: 10px;
     font-size: 20px;
     font-weight: 500;
-    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
+    background: linear-gradient(-135deg, var(--swm-blue), var(--swm-green));
     transition: all 0.3s ease;
 }
 
@@ -227,7 +227,7 @@ html,body {
 
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: linear-gradient(-135deg, var(--swm-green), var(--swm-blue));
+    background: linear-gradient(-135deg, var(--swm-blue), var(--swm-green));
 }
 
 
